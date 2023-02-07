@@ -71,7 +71,7 @@ with pyrtl.conditional_assignment:
         alu_out |= pyrtl.shift_right_arithmetic(data1, sh)
     with (func == 0b101010):
         #SLT
-        alu_out |= (data0 < data1)
+        alu_out |= pyrtl.signed_lt(data0, data1)
 
 rf[rd] <<= alu_out
 
