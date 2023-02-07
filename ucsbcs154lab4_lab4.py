@@ -44,45 +44,34 @@ data1 = pyrtl.WireVector(bitwidth=5, name='data 1')
 data0 <<= rf[rs]
 data1 <<= rf[rt]
 
-
-
 with pyrtl.conditional_assignment:
     with func == 0b100000:
         #ADD
-        #pass
-        alu_out |= data0 + data1
+        alu_out |= (data0 + data1)
     with func == 0b100010:
         #SUB
-        #pass
-        alu_out |= data0 - data1
+        alu_out |= (data0 - data1)
     with func == 0b100100:
         #AND
-        #pass
-        alu_out |= data0 & data1
+        alu_out |= (data0 & data1)
     with func == 0b100101:
         #OR
-        #pass
-        alu_out |= data0 | data1
+        alu_out |= (data0 | data1)
     with func == 0b100110:
         #XOR
-        #pass
-        alu_out |= data0 ^ data1
+        alu_out |= (data0 ^ data1)
     with func == 0b000000:
         #SLL
-        #pass
         alu_out |= pyrtl.shift_left_logical(data1, sh)
     with func == 0b000010:
         #SRL
-        #pass
         alu_out |= pyrtl.shift_right_logical(data1, sh)
     with func == 0b000011:
         #SRA
-        #pass
         alu_out |= pyrtl.shift_right_arithmetic(data1, sh)
     with func == 0b101010:
         #SLT
-        #pass
-        alu_out |= data0 < data1
+        alu_out |= (data0 < data1)
 
 rf[rd] <<= alu_out
 
