@@ -35,8 +35,8 @@ func <<= instr[0:6]
 
 #r_reg0 = pyrtl.WireVector(bitwidth=5, name='read regsiter 0 (rs)')
 #r_reg1 = pyrtl.WireVector(bitwidth=5, name='read regsiter 1 (rt)')
-data0 = pyrtl.WireVector(bitwidth=5, name='data 0')
-data1 = pyrtl.WireVector(bitwidth=5, name='data 1')
+data0 = pyrtl.WireVector(bitwidth=32, name='data 0')
+data1 = pyrtl.WireVector(bitwidth=32, name='data 1')
 #w_reg = pyrtl.WireVector(bitwidth=5, name='write register (rd)' )
 
 #r_reg0 <<= rs
@@ -45,31 +45,31 @@ data0 <<= rf[rs]
 data1 <<= rf[rt]
 
 with pyrtl.conditional_assignment:
-    with func == 0b100000:
+    with (func == 0b100000):
         #ADD
         alu_out |= (data0 + data1)
-    with func == 0b100010:
+    with (func == 0b100010):
         #SUB
         alu_out |= (data0 - data1)
-    with func == 0b100100:
+    with (func == 0b100100):
         #AND
         alu_out |= (data0 & data1)
-    with func == 0b100101:
+    with (func == 0b100101):
         #OR
         alu_out |= (data0 | data1)
-    with func == 0b100110:
+    with (func == 0b100110):
         #XOR
         alu_out |= (data0 ^ data1)
-    with func == 0b000000:
+    with (func == 0b000000):
         #SLL
         alu_out |= pyrtl.shift_left_logical(data1, sh)
-    with func == 0b000010:
+    with (func == 0b000010):
         #SRL
         alu_out |= pyrtl.shift_right_logical(data1, sh)
-    with func == 0b000011:
+    with (func == 0b000011):
         #SRA
         alu_out |= pyrtl.shift_right_arithmetic(data1, sh)
-    with func == 0b101010:
+    with (func == 0b101010):
         #SLT
         alu_out |= (data0 < data1)
 
